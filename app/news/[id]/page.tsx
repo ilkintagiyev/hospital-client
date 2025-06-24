@@ -3,7 +3,7 @@ import api from '@/constants/api';
 import Main from '@/layout/Main';
 import React from 'react'
 
-const page = async ({ params }: { params: { id: any } }) => {
+const page = async ({ params }: any) => {
 
   const newsResponse = await api.get(`/news/${params?.id}`);
 
