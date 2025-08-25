@@ -5,7 +5,6 @@ import Main from '@/layout/Main'
 import React from 'react'
 import { notFound } from 'next/navigation'
 
-
 export const dynamic = 'force-dynamic' 
 
 const Page = async ({ params }: any) => {

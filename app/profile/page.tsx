@@ -98,7 +98,6 @@ export default function MyProfile() {
                         onFinish={onFinish}
                         initialValues={{}}
                     >
-                        {/* 3 inputs per row */}
                         <div className="flex flex-wrap gap-6 mb-4">
                             <div className="flex-1 min-w-[150px] max-w-[calc(33.333%-1.5rem)]">
                                 <Form.Item name="name" label="Ad">
