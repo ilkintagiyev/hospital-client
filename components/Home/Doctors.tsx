@@ -94,7 +94,6 @@ const Doctors = ({ doctors }: any) => {
                     <p className="text-sm text-gray-600">{doctor.service_name}</p>
                   </div>
 
-                  {/* Hover zamanı görünən düymələr */}
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     whileHover={{ opacity: 1, y: 0 }}

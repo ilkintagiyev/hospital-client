@@ -7,7 +7,7 @@ import { ChevronRightIcon } from '@heroicons/react/24/solid'
 const Detail = ({ serviceData }: any) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const maxIndex = serviceData?.doctors.length - 2; // 2 box göstəririk
+    const maxIndex = serviceData?.doctors.length - 2; 
 
     const prev = () => {
         setCurrentIndex((i) => (i <= 0 ? maxIndex : i - 1));
@@ -20,7 +20,7 @@ const Detail = ({ serviceData }: any) => {
     return (
         <section className="py-12 bg-white w-full mt-[5px]">
             <div className="w-[90%] mx-auto px-6 flex flex-col lg:flex-row gap-12">
-                {/* Sol tərəf: Xidmət adı, təsvir, şəkillər */}
+
                 <div className="lg:w-1/3 w-full flex flex-col">
                     <h2 className="text-4xl font-bold text-blue-800 mb-4">
                         {serviceData?.service?.name}
@@ -44,7 +44,6 @@ const Detail = ({ serviceData }: any) => {
                     )}
                 </div>
 
-                {/* Orta sütun: About uzun mətn */}
                 <div className={`${ serviceData?.doctors?.length > 0 ? "lg:w-1/3" : "lg:w-1/2"} w-full flex flex-col items-center`}>
                     <div className="text-gray-700 text-base leading-relaxed px-4">
                         {serviceData?.service?.about ? (
@@ -59,7 +58,6 @@ const Detail = ({ serviceData }: any) => {
                 {
                     serviceData?.doctors?.length > 0 && (
                         <div className="lg:w-1/3 w-full max-w-sm mx-auto">
-                            {/* Navigation */}
                             <div className="flex justify-between items-center rounded-t-lg py-2 mb-4">
                                 <button
                                     onClick={prev}

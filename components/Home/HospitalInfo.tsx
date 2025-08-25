@@ -38,10 +38,8 @@ export default function HospitalInfo() {
                         "url('https://www.livhospital.az/uploads/5392c694-ab5d-4347-89e9-705af9638546_hastane%2012.webp')",
                 }}
             >
-                {/* Overlay qaralma effekti üçün */}
                 <div className="absolute inset-0 bg-black opacity-50"></div>
 
-                {/* Məlumat mətn konteyneri */}
                 <div className="relative max-w-3xl text-center px-6">
                     <h1 className="text-4xl font-extrabold text-white mb-4">
                         Sizin Sağlamlığınız Bizim Üçün Önəmlidir

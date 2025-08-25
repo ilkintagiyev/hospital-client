@@ -5,13 +5,8 @@ import Main from '@/layout/Main'
 import React from 'react'
 import { notFound } from 'next/navigation'
 
-type PageProps = {
-    params: {
-        id: string
-    }
-}
 
-export const dynamic = 'force-dynamic' // SSR üçün bu vacibdir
+export const dynamic = 'force-dynamic' 
 
 const Page = async ({ params }: any) => {
     try {
@@ -31,7 +26,7 @@ const Page = async ({ params }: any) => {
         );
     } catch (err) {
         console.error("Error loading doctor detail:", err);
-        return notFound(); // Əgər API error verərsə, 404 səhifəsinə atır
+        return notFound();
     }
 };
 

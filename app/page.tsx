@@ -1,3 +1,4 @@
+import ErrorPage from "@/components/Error";
 import Doctors from "@/components/Home/Doctors";
 import Hero from "@/components/Home/Hero";
 import HospitalInfo from "@/components/Home/HospitalInfo";
@@ -9,22 +10,31 @@ import { IDoctors } from "@/types/doctors";
 import { INews } from "@/types/news";
 import { IServices } from "@/types/services";
 import Image from "next/image";
+import { useState } from "react";
 
 export default async function Home() {
 
-  const [doctors, services, news] = await Promise.all([
-    api.get<IDoctors[]>("/doctors"),
-    api.get<IServices[]>("/services"),
-    api.get<INews[]>("/news")
-  ])
+  try {
+    const [doctorsRes, servicesRes, newsRes] = await Promise.allSettled([
+      api.get<IDoctors[]>("/doctors"),
+      api.get<IServices[]>("/services"),
+      api.get<INews[]>("/news")
+    ]);
 
-  return (
-    <Main>
-      <Hero doctors={doctors?.data} />
-      <ServicesPage services={services?.data} />
-      <HospitalInfo />
-      <Doctors doctors={doctors?.data} />
-      <News news={news?.data} />
-    </Main>
-  );
+    const doctors = doctorsRes.status === "fulfilled" ? doctorsRes.value.data : [];
+    const services = servicesRes.status === "fulfilled" ? servicesRes.value.data : [];
+    const news = newsRes.status === "fulfilled" ? newsRes.value.data : [];
+
+    return (
+      <Main>
+        <Hero doctors={doctors} />
+        <ServicesPage services={services} />
+        <HospitalInfo />
+        <Doctors doctors={doctors} />
+        <News news={news} />
+      </Main>
+    );
+  } catch (error) {
+    console.log(error);
+  }
 }

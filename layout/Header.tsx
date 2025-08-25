@@ -39,13 +39,12 @@ export default function Header() {
   return (
     <header style={{ boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)" }} className="px-6 md:px-10 py-4 bg-white">
       <div className="flex justify-between items-center">
-        {/* Logo */}
+
         <div onClick={() => router.push("/")} className="cursor-pointer">
           <h1 className="text-2xl font-bold text-gray-900">MedCare Hospital</h1>
           <p className="text-sm text-gray-500">Sağlamlığınız bizimlə güvəndədir</p>
         </div>
 
-        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 rounded hover:bg-gray-100 transition">
             {isMobileMenuOpen ? (
@@ -56,7 +55,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Desktop Navigation */}
+
         <nav className="hidden md:flex flex-1 justify-center">
           <ul className="flex gap-6 text-gray-700 font-medium">
             {
@@ -73,9 +72,7 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* Right Icons */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Search */}
           {
             user?.role === "doctor" && (
               <NotificationDropdown />
@@ -85,7 +82,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
       {isMobileMenuOpen && (
         <nav className="md:hidden mt-4">
           <ul className="flex flex-col gap-3 text-gray-700 font-medium">

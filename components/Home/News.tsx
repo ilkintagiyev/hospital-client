@@ -34,7 +34,6 @@ const News = ({ news }: IProps) => {
 
   return (
     <section className="my-12 py-5 w-[95%] mx-auto">
-      {/* Başlıq və düymənin yerləşməsi */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <motion.h2
           ref={ref}
@@ -56,7 +55,6 @@ const News = ({ news }: IProps) => {
         </button>
       </div>
 
-      {/* Xəbər kartları */}
       <motion.div
         ref={ref}
         initial="hidden"

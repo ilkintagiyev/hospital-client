@@ -71,11 +71,10 @@ const Hero = ({ doctors }: IProps) => {
             <section className="w-[95%] mx-auto rounded-3xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-200 shadow-2xl my-8">
                 <div className="flex flex-col-reverse md:flex-row items-center justify-between">
 
-                    {/* Left Content */}
                     <div className="md:w-1/2 p-8 md:p-12 space-y-6">
                         <AnimatePresence initial={false} custom={direction} mode="wait">
                             <motion.div
-                                key={doctor.doctor_id}
+                                key={doctor?.doctor_id}
                                 custom={direction}
                                 variants={variants}
                                 initial="enter"
@@ -84,10 +83,10 @@ const Hero = ({ doctors }: IProps) => {
                                 className="space-y-6"
                             >
                                 <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight drop-shadow-md">
-                                    {doctor.name + " " + doctor?.surname}
+                                    {doctor?.name + " " + doctor?.surname}
                                 </h1>
                                 <h2 className="text-2xl md:text-3xl font-semibold text-blue-700 drop-shadow-sm">
-                                    {doctor.service_name}
+                                    {doctor?.service_name}
                                 </h2>
                                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
                                     Hər xəstəyə xüsusi diqqət və qayğı göstəririk. Sizin sağlamlığınız bizim üçün ən önəmlidir.
@@ -113,13 +112,12 @@ const Hero = ({ doctors }: IProps) => {
                         </AnimatePresence>
                     </div>
 
-                    {/* Right Image */}
                     <div className="relative md:w-1/2 h-[320px] md:h-[520px] bg-gray-200 flex items-center justify-center  overflow-hidden shadow-lg">
                         <AnimatePresence initial={false} custom={direction} mode="wait">
                             <motion.img
-                                key={doctor.doctor_id}
-                                src={doctor.photo}
-                                alt={doctor.name}
+                                key={doctor?.doctor_id}
+                                src={doctor?.photo}
+                                alt={doctor?.name}
                                 custom={direction}
                                 variants={variants}
                                 initial="enter"

@@ -76,7 +76,6 @@ const RegisterPage = () => {
                         requiredMark={false}
                         className=''
                     >
-                        {/* 1-ci sıra: Ad və Soyad */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-[50px]">
                             <Form.Item
                                 label={<span className="text-gray-700 font-[600] text-[16px]">Ad</span>}
@@ -95,7 +94,6 @@ const RegisterPage = () => {
                             </Form.Item>
                         </div>
 
-                        {/* 2-ci sıra: Email və Telefon */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Form.Item
                                 label={<span className="text-gray-700 font-[600] text-[16px]">Elektron poçt</span>}
@@ -114,7 +112,6 @@ const RegisterPage = () => {
                             </Form.Item>
                         </div>
 
-                        {/* 3-cü sıra: Parol və Rol */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Form.Item
                                 label={<span className="text-gray-700 font-[600] text-[16px]">Parol</span>}
@@ -136,7 +133,6 @@ const RegisterPage = () => {
                             </Form.Item>
                         </div>
 
-                        {/* Submit Button */}
                         <Form.Item>
                             <Button
                                 type="primary"

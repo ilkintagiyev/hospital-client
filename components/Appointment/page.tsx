@@ -1,6 +1,5 @@
 import api from '@/constants/api';
 import { REQUIRED_FIELD } from '@/constants/forms';
-import { IDoctors } from '@/types/doctors';
 import { Button, DatePicker, Form, Input } from 'antd'
 import dayjs from 'dayjs';
 import React, { useState } from 'react'

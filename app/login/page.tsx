@@ -44,7 +44,6 @@ const LoginPage = () => {
             setErrorMessage(error?.response?.data?.message || 'Xəta baş verdi');
             setLoading(false);
         }
-        // form.resetFields();
     };
 
     return (

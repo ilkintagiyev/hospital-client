@@ -4,6 +4,7 @@ import Main from '@/layout/Main'
 import React from 'react'
 
 const Page = async ({ params }: any) => {
+    
     const service = await api.get(`/services/${params.id}`)
 
     return (
