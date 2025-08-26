@@ -25,6 +25,7 @@ export default async function Home() {
     const services = servicesRes.status === "fulfilled" ? servicesRes.value.data : [];
     const news = newsRes.status === "fulfilled" ? newsRes.value.data : [];
 
+
     return (
       <Main>
         <Hero doctors={doctors} />

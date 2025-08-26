@@ -110,7 +110,7 @@ const Doctors = ({ doctors }: any) => {
                     </button>
                     <button
                       onClick={() => router.push(`/doctors/${doctor?.user_id}`)}
-                      className="px-2 py-2 bg-white text-gray-800 text-[14px] rounded hover:bg-gray-200 transition">
+                      className="px-2 py-2 bg-white text-gray-800 text-[14px]  rounded hover:bg-gray-200 transition">
                       Ətraflı bax
                     </button>
                   </motion.div>

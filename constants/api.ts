@@ -13,7 +13,7 @@ api.interceptors.request.use((config: any) => {
 
     if (token) {
         config.headers = {
-            ...config.headers,  
+            ...config.headers,
             Authorization: `Bearer ${token}`,
         };
     }
@@ -24,7 +24,7 @@ api.interceptors.request.use((config: any) => {
 });
 
 api.interceptors.response.use(
-    (response) => response, 
+    (response) => response,
     async (error) => {
         const originalRequest = error.config;
 
