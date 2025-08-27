@@ -17,6 +17,11 @@ const Doctors = ({ doctors }: any) => {
   const { target } = useSelector((state: any) => state.global);
   const doctorRef = useRef<HTMLDivElement>(null);
 
+  const { user } = useSelector((state: any) => state.global);
+
+  console.log(user);
+
+
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2 });
 
@@ -100,14 +105,16 @@ const Doctors = ({ doctors }: any) => {
                     transition={{ duration: 0.3 }}
                     className="absolute inset-0  flex flex-col justify-center items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
-                    <button
-                      onClick={() => {
-                        setSelectedDoctor(doctor)
-                        setAppointmentModal(true)
-                      }}
-                      className="px-2 py-2 bg-blue-500 text-white text-[14px] rounded hover:bg-blue-600 transition">
-                      Görüş təyin et
-                    </button>
+                    {user?.role !== "doctor" && (
+                      <button
+                        onClick={() => {
+                          setSelectedDoctor(doctor)
+                          setAppointmentModal(true)
+                        }}
+                        className="px-2 py-2 bg-blue-500 text-white text-[14px] rounded hover:bg-blue-600 transition">
+                        Görüş təyin et
+                      </button>
+                    )}
                     <button
                       onClick={() => router.push(`/doctors/${doctor?.user_id}`)}
                       className="px-2 py-2 bg-white text-gray-800 text-[14px]  rounded hover:bg-gray-200 transition">
@@ -123,7 +130,7 @@ const Doctors = ({ doctors }: any) => {
             <div className="mt-6 text-center">
               <button
                 onClick={handleToggle}
-                className="relative w-[110px] py-1 overflow-hidden bg-blue-500 font-semibold rounded-lg border border-blue-500 text-white transition-all duration-300 group"
+                className="relative w-[110px] py-1 sm:py-1 md:py-2 overflow-hidden bg-blue-500 font-semibold rounded-lg border border-blue-500 text-white transition-all duration-300 group"
               >
                 <span className="relative z-10 text-white-500 text-[15px] group-hover:text-blue-600">
                   Daha çox

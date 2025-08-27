@@ -96,12 +96,8 @@ export default function Header() {
                 </li>
               ))
             }
-            <li className="flex gap-3 px-2 mt-2">
-              {
-                user?.role === "doctor" && (
-                  <NotificationDropdown />
-                )
-              }
+            <li className="flex gap-3 px-2 mt-2 items-center">
+              {user?.role === "doctor" && <NotificationDropdown />}
               <UserDropdown />
             </li>
           </ul>

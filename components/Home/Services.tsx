@@ -79,12 +79,13 @@ const Services = ({ services }: IProps) => {
 
     return (
         <section className="py-6 px-6 w-[100%] lg:w-[85%] mx-auto relative">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8 sm:mb-10 lg:mb-12"> {/* margin-top azaldıldı */}
                 <h1 className="
-               text-xl lg:text-3xl font-semibold text-blue-700 mb-4 relative inline-block text-blue-500 
-                after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] 
-                after:w-0 after:bg-blue-500 after:transition-all 
-                after:duration-300 hover:after:w-full">
+                   text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold 
+                   text-blue-700 mb-4 relative inline-block text-blue-500 
+                   after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:h-[2px] 
+                   after:w-0 after:bg-blue-500 after:transition-all 
+                   after:duration-300 hover:after:w-full">
                     Şöbələrimiz
                 </h1>
             </div>
@@ -117,12 +118,12 @@ const Services = ({ services }: IProps) => {
                                 key={service.id}
                                 className="
                                      bg-white rounded-lg p-6 shadow-lg flex flex-col items-center cursor-pointer
-                                     hover:scale-105 transform transition flex-1 min-w-[180px]
+                                     hover:scale-105 transform transition flex-1 min-w-[160px] sm:min-w-[180px]
                                      hover:bg-blue-500 group
                                    "
                             >
                                 <Icon className="h-12 w-12 text-blue-500 mb-4 group-hover:text-white transition" />
-                                <h3 className="text-xl font-semibold text-gray-900 text-center group-hover:text-white transition">
+                                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 text-center group-hover:text-white transition">
                                     {service.name}
                                 </h3>
                             </div>

@@ -199,7 +199,7 @@ export default function MyProfile() {
 
                         <div className="flex justify-end">
                             <Button
-                                className="w-[200px]!"
+                                className="w-[100px]!"
                                 type="primary"
                                 htmlType="submit"
                                 loading={loading}

@@ -21,7 +21,10 @@ const AboutNews = ({ newsItem }: IProps) => {
                 ← Geri
             </button>
 
-            <h1 className="text-3xl font-bold mb-4">{newsItem.title}</h1>
+            {/* Title responsive */}
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
+                {newsItem.title}
+            </h1>
 
             <img
                 src={newsItem.image_url}
@@ -30,10 +33,13 @@ const AboutNews = ({ newsItem }: IProps) => {
                 loading="lazy"
             />
 
-            <p className="text-gray-800 text-lg whitespace-pre-line">{newsItem.content}</p>
+            {/* Content responsive */}
+            <p className="text-base sm:text-lg md:text-xl text-gray-800 whitespace-pre-line">
+                {newsItem.content}
+            </p>
 
         </section>
     )
 }
 
-export default AboutNews
+export default AboutNews;
