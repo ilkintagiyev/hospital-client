@@ -21,7 +21,6 @@ const AboutNews = ({ newsItem }: IProps) => {
                 ← Geri
             </button>
 
-            {/* Title responsive */}
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
                 {newsItem.title}
             </h1>
@@ -33,7 +32,6 @@ const AboutNews = ({ newsItem }: IProps) => {
                 loading="lazy"
             />
 
-            {/* Content responsive */}
             <p className="text-base sm:text-lg md:text-xl text-gray-800 whitespace-pre-line">
                 {newsItem.content}
             </p>

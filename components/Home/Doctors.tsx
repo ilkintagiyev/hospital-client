@@ -19,9 +19,6 @@ const Doctors = ({ doctors }: any) => {
 
   const { user } = useSelector((state: any) => state.global);
 
-  console.log(user);
-
-
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2 });
 

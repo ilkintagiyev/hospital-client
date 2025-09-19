@@ -11,12 +11,6 @@ export const headerData = [
         link: "/about"
     },
     {
-        id: 3,
-        value: "Həkimlərimiz",
-        ref: "doctors",
-        link: "/"
-    },
-    {
         id: 4,
         value: "Xəbərlər",
         link: "/news",

@@ -25,17 +25,10 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleMenuClick = (menu: any) => {
-    if (pathname === "/") {
-      router.push(menu?.link);
-      if (menu?.ref === "doctors") {
-        dispatch(setScrollTarget(menu?.ref));
-      }
-    } else {
-      setIsMobileMenuOpen(false);
-      router.push(menu?.link);
-      dispatch(setScrollTarget(menu?.ref));
-    }
+    router.push(menu?.link);
+    setIsMobileMenuOpen(false);
   };
+  
   return (
     <header style={{ boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)" }} className="px-6 md:px-10 py-4 bg-white">
       <div className="flex justify-between items-center">
