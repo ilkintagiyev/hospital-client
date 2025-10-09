@@ -1,7 +1,10 @@
 "use client";
 
 import React from "react";
-import Map from "./Map";
+import dynamic from "next/dynamic";
+
+// SSR-i dayandırmaq üçün Map komponentini dinamik import et
+const Map = dynamic(() => import("./Map"), { ssr: false });
 
 const AboutPage: React.FC = () => {
   return (
