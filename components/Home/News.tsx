@@ -49,7 +49,7 @@ const News = ({ news }: IProps) => {
         </motion.h2>
         <button
           onClick={() => router.push("/news")}
-          className="h-[40px] w-[120px] text-sm text-white rounded-md bg-blue-600 hover:bg-blue-700 transition duration-200 shadow-sm hover:shadow-md"
+          className="h-[35px] sm:h-[38px] md:h-[40px] w-[90px] sm:w-[100px] md:w-[120px] text-xs sm:text-sm md:text-sm text-white rounded-md bg-blue-600 hover:bg-blue-700 transition duration-200 shadow-sm hover:shadow-md"
         >
           Hamısına bax
         </button>

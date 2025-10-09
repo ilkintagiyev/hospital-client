@@ -77,7 +77,7 @@ const Detail = ({ serviceData }: any) => {
                             </button>
                         </div>
 
-                        <div className="flex space-x-3 sm:space-x-4 overflow-hidden rounded-b-lg border border-t-0 border-gray-200">
+                        <div className="flex space-x-3 sm:space-x-4 overflow-hidden rounded-b-lg ">
                             {serviceData?.doctors
                                 .slice(currentIndex, currentIndex + 2)
                                 .map((doctor: any) => (

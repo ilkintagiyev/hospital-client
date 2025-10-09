@@ -89,11 +89,13 @@ const Doctors = ({ doctors }: any) => {
                     alt={doctor.name}
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="cursor-pointer text-lg font-semibold text-gray-800 hover:text-blue-500">
+                  <div className="p-2 sm:p-3 md:p-4">
+                    <p className="cursor-pointer text-base sm:text-lg md:text-xl font-semibold text-gray-800 hover:text-blue-500">
                       {doctor.name + " " + doctor?.surname}
                     </p>
-                    <p className="text-sm text-gray-600">{doctor.service_name}</p>
+                    <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                      {doctor.service_name}
+                    </p>
                   </div>
 
                   <motion.div
@@ -127,9 +129,9 @@ const Doctors = ({ doctors }: any) => {
             <div className="mt-6 text-center">
               <button
                 onClick={handleToggle}
-                className="relative w-[110px] py-1 sm:py-1 md:py-2 overflow-hidden bg-blue-500 font-semibold rounded-lg border border-blue-500 text-white transition-all duration-300 group"
+                className="relative w-[90px] sm:w-[100px] md:w-[110px] py-1 sm:py-1.5 md:py-2 overflow-hidden bg-blue-500 font-semibold rounded-lg border border-blue-500 text-white transition-all duration-300 group"
               >
-                <span className="relative z-10 text-white-500 text-[15px] group-hover:text-blue-600">
+                <span className="relative z-10 text-white text-[13px] sm:text-[14px] md:text-[15px] group-hover:text-blue-600">
                   Daha çox
                 </span>
                 <span

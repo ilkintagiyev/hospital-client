@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import Modal from "../Modal";
 import AppointmentPage from "../Appointment/page";
 import { useSelector } from "react-redux";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
 const Detail = ({ doctor }: any) => {
   const { user } = useSelector((state: any) => state.global);
-
   const [appointmentModal, setAppointmentModal] = useState<boolean>(false);
 
   return (
@@ -15,134 +15,76 @@ const Detail = ({ doctor }: any) => {
       <Modal modalVisible={appointmentModal} setModalVisible={setAppointmentModal}>
         <AppointmentPage closeModal={setAppointmentModal} doctor={doctor} />
       </Modal>
-      <div className="w-full p-4 md:p-8">
-        <div className="flex items-center justify-center bg-white ">
-          <div className="shadow-2xl w-full flex flex-col md:flex-row overflow-hidden">
-            {/* Solda şəkil */}
-            <div className="md:w-1/2 relative">
-              <img
-                src={doctor.photo}
-                alt={`${doctor.name} ${doctor.surname}`}
-                className="object-cover w-full h-full md:h-[600px]"
-              />
-            </div>
 
-            {/* Sağda məlumatlar */}
-            <div className="md:w-2/3 p-4 md:p-10 flex flex-col justify-between">
-              <div className="flex flex-col gap-4 font-semibold text-sm md:text-lg">
-                {/* hər row */}
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Ad Soyad:</span>
-                  <span>{doctor.name} {doctor.surname}</span>
-                </div>
+      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-12">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 bg-white rounded-3xl shadow-xl overflow-hidden">
+          {/* Solda şəkil */}
+          <div className="md:w-1/2 relative group overflow-hidden rounded-t-3xl md:rounded-t-none md:rounded-l-3xl">
+            <img
+              src={doctor.photo}
+              alt={`${doctor.name} ${doctor.surname}`}
+              className="object-cover w-full h-80 sm:h-96 md:h-full transform transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Email:</span>
-                  <span>{doctor.email}</span>
-                </div>
+          {/* Sağda info */}
+          <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
+            <div className="flex flex-col gap-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-blue-900">{doctor.name} {doctor.surname}</h1>
+              <p className="text-gray-600 text-sm sm:text-base md:text-lg">{doctor.bio ?? "Haqqında məlumat yoxdur."}</p>
 
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Telefon:</span>
-                  <span>{doctor.telephone}</span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Təcrübə illəri:</span>
-                  <span>{doctor.experience_years ?? "Qeyd olunmayıb"}</span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Bakalavr dərəcəsi:</span>
-                  <span>{doctor.bachelor_degree ?? "Qeyd olunmayıb"}</span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Magistr dərəcəsi:</span>
-                  <span>{doctor.master_degree ?? "Qeyd olunmayıb"}</span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Cinsi:</span>
-                  <span>
-                    {doctor.gender === "female"
-                      ? "Qadın"
-                      : doctor.gender === "male"
-                      ? "Kişi"
-                      : "Qeyd olunmayıb"}
-                  </span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">İş günləri:</span>
-                  <span>{doctor.work_days ?? "Qeyd olunmayıb"}</span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Facebook:</span>
-                  <div className="flex items-center gap-2">
-                    <img
-                      className="w-5 h-5"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png"
-                    />
-                    <a
-                      className="text-blue-500 text-sm md:text-base"
-                      href={doctor.facebook_url}
-                    >
-                      {doctor.facebook_url ?? "Qeyd olunmayıb"}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Instagram:</span>
-                  <div className="flex items-center gap-2">
-                    <img
-                      className="w-5 h-5"
-                      src="https://www.logo.wine/a/logo/Instagram/Instagram-Logo.wine.svg"
-                    />
-                    <a
-                      className="text-blue-500 text-sm md:text-base"
-                      href={doctor.instagram_url}
-                    >
-                      {doctor.instagram_url ?? "Qeyd olunmayıb"}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Xidmət növü:</span>
-                  <span>{doctor.service_name ?? "Qeyd olunmayıb"}</span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-blue-900 w-40">Reytinq:</span>
-                  <span>{doctor.rating ?? "Qeyd olunmayıb"}</span>
-                </div>
-
-                {user?.role !== "doctor" && (
-                  <button
-                    onClick={() => setAppointmentModal(true)}
-                    className="w-full sm:w-[210px] text-sm md:text-lg mt-4 bg-blue-600 hover:bg-blue-800 active:bg-blue-900 transition duration-300 text-white font-semibold py-2 px-4 md:px-8 rounded-xl shadow-lg hover:shadow-2xl"
-                  >
-                    Görüş Təyin Et
-                  </button>
-                )}
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <InfoChip label="Email" value={doctor.email} />
+                <InfoChip label="Telefon" value={doctor.telephone} />
+                <InfoChip label="Təcrübə illəri" value={doctor.experience_years ?? "Qeyd olunmayıb"} />
+                <InfoChip label="Bakalavr" value={doctor.bachelor_degree ?? "Qeyd olunmayıb"} />
+                <InfoChip label="Magistr" value={doctor.master_degree ?? "Qeyd olunmayıb"} />
+                <InfoChip label="Cinsi" value={
+                  doctor.gender === "female" ? "Qadın" : doctor.gender === "male" ? "Kişi" : "Qeyd olunmayıb"
+                } />
+                <InfoChip label="İş günləri" value={doctor.work_days ?? "Qeyd olunmayıb"} />
+                <InfoChip label="Xidmət növü" value={doctor.service_name ?? "Qeyd olunmayıb"} />
+                <InfoChip label="Reytinq" value={doctor.rating ?? "Qeyd olunmayıb"} />
               </div>
+
+              {/* Sosial düymələr */}
+              <div className="flex gap-4 mt-6">
+                <SocialButton url={doctor.facebook_url} Icon={FaFacebookF} />
+                <SocialButton url={doctor.instagram_url} Icon={FaInstagram} />
+              </div>
+
+              {/* Görüş button */}
+              {user?.role !== "doctor" && (
+                <button
+                  onClick={() => setAppointmentModal(true)}
+                  className="mt-8 w-full sm:w-1/2 py-3 px-6 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-2xl shadow-lg hover:scale-105 hover:from-blue-700 hover:to-blue-900 transition-all duration-300"
+                >
+                  Görüş Təyin Et
+                </button>
+              )}
             </div>
           </div>
         </div>
-
-        {doctor?.bio && (
-          <div className="mt-6 md:mt-10 text-justify whitespace-pre-line leading-relaxed text-sm md:text-lg">
-            <h3 className="font-bold text-blue-900 text-xl md:text-2xl mb-2 md:mb-4 border-b-2 border-blue-400 pb-1 md:pb-2">
-              Haqqında
-            </h3>
-            {doctor.bio}
-          </div>
-        )}
       </div>
     </>
   );
 };
+
+const InfoChip = ({ label, value }: { label: string; value: string }) => (
+  <div className="flex flex-col bg-gray-50 p-2 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
+    <span className="text-xs sm:text-sm font-semibold text-gray-500 uppercase">{label}</span>
+    <span className="mt-1 text-gray-800 font-medium text-sm sm:text-base">{value}</span>
+  </div>
+);
+
+const SocialButton = ({ url, Icon }: { url?: string; Icon: any }) => (
+  <a
+    href={url}
+    target="_blank"
+    className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600 text-white hover:bg-blue-800 hover:scale-110 transition-all duration-300"
+  >
+    <Icon size={16} />
+  </a>
+);
 
 export default Detail;

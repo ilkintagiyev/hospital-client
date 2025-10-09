@@ -12,7 +12,7 @@ const Footer = () => {
         <footer className="bg-black text-white py-10 px-6">
             <div className="w-[95%]  mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
 
-                <div>
+                <div className='cursor-pointer' onClick={() => router.push("/")}>
                     <h2 className="text-xl font-bold mb-3">MedCare Hospital</h2>
                     <p className="text-sm">
                         Sağlamlığınız bizim üçün hər zaman ön plandadır. Keyfiyyətli tibbi xidmətlərlə xidmətinizdəyik.
