@@ -25,7 +25,7 @@ export default function RootLayout({
       <body
         className={inter.variable}
       >
-        <NProgressProvider />
+        {/* <NProgressProvider /> */}
         <ClientComponent>{children}</ClientComponent>
       </body>
     </html>

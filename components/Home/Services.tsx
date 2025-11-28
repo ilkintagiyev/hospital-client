@@ -25,6 +25,8 @@ import {
 
 import type { FC, SVGProps } from 'react';
 import { useRouter } from 'next/navigation';
+import { setLoading } from '@/store/slices/global';
+import { useDispatch } from 'react-redux';
 
 const iconMap: Record<number, FC<SVGProps<SVGSVGElement>>> = {
     1: HeartIcon,
@@ -52,6 +54,7 @@ interface IProps {
 }
 
 const Services = ({ services }: IProps) => {
+    const dispatch = useDispatch();
 
     const router = useRouter();
 
@@ -114,13 +117,20 @@ const Services = ({ services }: IProps) => {
                         const Icon = iconMap[service.id] || HeartIcon;
                         return (
                             <div
-                                onClick={() => router.push(`/services/${service?.id}`)}
+                                onClick={() => {
+                                    dispatch(setLoading(true));
+                                    router.push(`/services/${service?.id}`);
+
+                                    setTimeout(() => {
+                                        dispatch(setLoading(false));  // Loading OFF
+                                    }, 700);
+                                }}
                                 key={service.id}
                                 className="
-                                     bg-white rounded-lg p-6 shadow-lg flex flex-col items-center cursor-pointer
-                                     hover:scale-105 transform transition flex-1 min-w-[160px] sm:min-w-[180px]
-                                     hover:bg-blue-500 group
-                                   "
+    bg-white rounded-lg p-6 shadow-lg flex flex-col items-center cursor-pointer
+    hover:scale-105 transform transition flex-1 min-w-[160px] sm:min-w-[180px]
+    hover:bg-blue-500 group
+  "
                             >
                                 <Icon className="h-12 w-12 text-blue-500 mb-4 group-hover:text-white transition" />
                                 <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 text-center group-hover:text-white transition">
@@ -149,7 +159,7 @@ const Services = ({ services }: IProps) => {
                     </svg>
                 </button>
             </div>
-        </section>
+        </section >
     );
 };
 

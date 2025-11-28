@@ -6,12 +6,15 @@ import { useInView } from "react-intersection-observer";
 import { INews } from "@/types/news";
 import { useRouter } from "next/navigation";
 import { easeOut } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { setLoading } from "@/store/slices/global";
 
 interface IProps {
   news: INews[];
 }
 
 const News = ({ news }: IProps) => {
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const controls = useAnimation();
@@ -48,8 +51,17 @@ const News = ({ news }: IProps) => {
           Ən Son Xəbərlər
         </motion.h2>
         <button
-          onClick={() => router.push("/news")}
-          className="h-[35px] sm:h-[38px] md:h-[40px] w-[90px] sm:w-[100px] md:w-[120px] text-xs sm:text-sm md:text-sm text-white rounded-md bg-blue-600 hover:bg-blue-700 transition duration-200 shadow-sm hover:shadow-md"
+
+          onClick={() => {
+            dispatch(setLoading(true));
+            router.push(`/news`);
+
+            setTimeout(() => {
+              dispatch(setLoading(false));
+            }, 700)
+          }
+          }
+          className="h-[35px] sm:h-[38px] md:h-[35px] w-[90px] sm:w-[100px] md:w-[110px] text-xs sm:text-sm md:text-sm text-white rounded-md bg-blue-600 hover:bg-blue-700 transition duration-200 shadow-sm hover:shadow-md"
         >
           Hamısına bax
         </button>
@@ -64,7 +76,14 @@ const News = ({ news }: IProps) => {
       >
         {news?.slice(0, 4).map(({ id, title, content, image_url }: INews) => (
           <div
-            onClick={() => router.push(`/news/${id}`)}
+            onClick={() => {
+              dispatch(setLoading(true));
+              router.push(`/news/${id}`)
+              setTimeout(() => {
+                dispatch(setLoading(false));  // Loading OFF
+              }, 700);
+            }
+            }
             key={id}
             className="cursor-pointer bg-white rounded-lg overflow-hidden shadow-md hover:bg-blue-500 hover:text-white transition-colors duration-300"
           >
@@ -81,7 +100,7 @@ const News = ({ news }: IProps) => {
           </div>
         ))}
       </motion.div>
-    </section>
+    </section >
   );
 };
 

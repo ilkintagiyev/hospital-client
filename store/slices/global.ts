@@ -4,6 +4,7 @@ const initialState = {
     user: null,
     updateRender: false,
     target: null,
+    loading: false,
 };
 
 export const global = createSlice({
@@ -19,7 +20,10 @@ export const global = createSlice({
         setScrollTarget: (state, { payload }) => {
             state.target = payload;
         },
+        setLoading: (state, { payload }) => {
+            state.loading = payload;
+        }
     },
 });
 
-export const { setUser, setUptadeRender, setScrollTarget } = global.actions;
+export const { setUser, setUptadeRender, setScrollTarget, setLoading } = global.actions;

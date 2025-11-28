@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../Modal";
 import Success from "../Success";
 import ErrorPage from "../Error";
 import api from "@/constants/api";
 import { DatePicker } from "antd";
+import { setLoading } from "@/store/slices/global";
 
 interface IProps {
     closeModal: (val: boolean) => void;
@@ -15,6 +16,7 @@ interface IProps {
 }
 
 const AppointmentPage = ({ doctor, closeModal }: IProps) => {
+    const dispatch = useDispatch();
     const { user } = useSelector((state: any) => state.global);
 
     const [successModalVisible, setSuccessModalVisible] = useState(false);
@@ -22,7 +24,6 @@ const AppointmentPage = ({ doctor, closeModal }: IProps) => {
     const [errorMessage, setErrorMessage] = useState<string | boolean>(false);
     const [successMessage, setSuccessMessage] = useState<string>("");
 
-    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: user?.name + " " + user?.surname || "",
         phone: user?.telephone || "",
@@ -52,16 +53,17 @@ const AppointmentPage = ({ doctor, closeModal }: IProps) => {
         };
 
         try {
-            setLoading(true);
+            dispatch(setLoading(true));
             await api.post("/appointments", newData);
             setSuccessMessage("Görüşünüz təyin olundu");
             setSuccessModalVisible(true);
-            setLoading(false);
+            setTimeout(() => {
+                dispatch(setLoading(false));  // Loading OFF
+            }, 700);
             close();
         } catch (error: any) {
             setErrorMessage(error?.response?.data?.message || "Xəta baş verdi");
             setErrorModalVisible(true);
-            setLoading(false);
         }
     };
 
@@ -137,7 +139,7 @@ const AppointmentPage = ({ doctor, closeModal }: IProps) => {
                             onClick={submitButton}
                             className="h-9 w-24 bg-blue-700 text-white rounded-md hover:bg-blue-500 transition-colors"
                         >
-                            {loading ? "Gözləyin..." : "Təsdiqlə"}
+                            Təsdiqlə
                         </button>
                     </div>
                 </div>

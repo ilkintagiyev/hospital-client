@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { BellIcon, StarIcon } from '@heroicons/react/24/solid';
 import { io } from "socket.io-client";
 import api from '@/constants/api';
-import Loading from '@/components/Loading';
 
 export default function NotificationDropdown() {
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -45,7 +44,6 @@ export default function NotificationDropdown() {
         }
     };
 
-    if (loading) return <Loading />
 
     return (
         <div className="relative text-[20px]" ref={dropdownRef}>

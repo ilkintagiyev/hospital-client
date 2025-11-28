@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import UserDropdown from './UserDropdown';
 import { headerData } from '@/constants/headerData';
 import { useDispatch, useSelector } from 'react-redux';
-import { setScrollTarget } from '@/store/slices/global';
+import { setLoading, setScrollTarget } from '@/store/slices/global';
 import NotificationDropdown from './NotificationDropdown';
 import { usePathname } from "next/navigation";
 
@@ -25,15 +25,25 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleMenuClick = (menu: any) => {
+    dispatch(setLoading(true));
     router.push(menu?.link);
     setIsMobileMenuOpen(false);
+    setTimeout(() => {
+      dispatch(setLoading(false));  // Loading OFF
+    }, 700);
   };
-  
+
   return (
     <header style={{ boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)" }} className="px-6 md:px-10 py-4 bg-white">
       <div className="flex justify-between items-center">
 
-        <div onClick={() => router.push("/")} className="cursor-pointer">
+        <div onClick={() => {
+          dispatch(setLoading(true));
+          router.push(`/`);
+          setTimeout(() => {
+            dispatch(setLoading(false));
+          }, 700);
+        }} className="cursor-pointer">
           <h1 className="text-2xl font-bold text-gray-900">MedCare Hospital</h1>
           <p className="text-sm text-gray-500">Sağlamlığınız bizimlə güvəndədir</p>
         </div>

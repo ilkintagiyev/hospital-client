@@ -2,9 +2,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '@/store/slices/global';
 
 export default function UserDropdown() {
+    const dispatch = useDispatch();
 
     const { user } = useSelector((state: any) => state.global);
 
@@ -45,11 +47,17 @@ export default function UserDropdown() {
                                 </li>
                             )
                         }
-                        
+
                         <li>
                             <button
-                                onClick={() => router.push("/login")}
-                                className="w-full text-[16px] text-left px-4 py-2 hover:bg-gray-100 transition"
+                                onClick={() => {
+                                    dispatch(setLoading(true));
+                                    router.push(`/login`);
+                                    setTimeout(() => {
+                                        dispatch(setLoading(false));
+                                    }, 700);
+                                }}
+                                className="w-full text-[15px] text-left px-4 py-1 hover:bg-gray-100 transition"
                             >
                                 Çıxış et
                             </button>

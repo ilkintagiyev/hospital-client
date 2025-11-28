@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useAnimation } from 'framer-motion'
 import { useInView } from "react-intersection-observer";
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import { setScrollTarget } from '@/store/slices/global'
+import { setLoading, setScrollTarget } from '@/store/slices/global'
 import Modal from '../Modal'
 import AppointmentPage from '../Appointment/page'
 import { IDoctors } from '@/types/doctors';
@@ -115,8 +115,15 @@ const Doctors = ({ doctors }: any) => {
                       </button>
                     )}
                     <button
-                      onClick={() => router.push(`/doctors/${doctor?.user_id}`)}
-                      className="px-2 py-2 bg-white text-gray-800 text-[14px]  rounded hover:bg-gray-200 transition">
+                      onClick={() => {
+                        dispatch(setLoading(true));
+                        router.push(`/doctors/${doctor?.user_id}`);
+
+                        setTimeout(() => {
+                          dispatch(setLoading(false));
+                        }, 700);
+                      }}
+                      className="px-2 py-2 bg-white text-gray-800 text-[14px] font-[500] rounded hover:bg-gray-200 transition">
                       Ətraflı bax
                     </button>
                   </motion.div>
@@ -129,7 +136,7 @@ const Doctors = ({ doctors }: any) => {
             <div className="mt-6 text-center">
               <button
                 onClick={handleToggle}
-                className="relative w-[90px] sm:w-[100px] md:w-[110px] py-1 sm:py-1.5 md:py-2 overflow-hidden bg-blue-500 font-semibold rounded-lg border border-blue-500 text-white transition-all duration-300 group"
+                className="relative w-[90px] sm:w-[100px] md:w-[100px] py-1 sm:py-1.5 md:py-1 overflow-hidden bg-blue-500 font-semibold rounded-lg border border-blue-500 text-white transition-all duration-300 group"
               >
                 <span className="relative z-10 text-white text-[13px] sm:text-[14px] md:text-[15px] group-hover:text-blue-600">
                   Daha çox
@@ -141,7 +148,7 @@ const Doctors = ({ doctors }: any) => {
             </div>
           )}
         </div>
-      </motion.div>
+      </motion.div >
 
     </>
   )

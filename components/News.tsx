@@ -1,14 +1,17 @@
 "use client";
 
+import { setLoading } from "@/store/slices/global";
 import { INews } from "@/types/news";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 interface IProps {
     news: INews[];
 }
 
 const News = ({ news }: IProps) => {
+    const dispatch = useDispatch();
 
     const router = useRouter();
 
@@ -17,7 +20,14 @@ const News = ({ news }: IProps) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
                 {news?.map(({ id, title, content, image_url }: INews) => (
                     <article
-                        onClick={() => router?.push(`/news/${id}`)}
+                        onClick={() => {
+                            dispatch(setLoading(true));
+                            router?.push(`/news/${id}`)
+                            setTimeout(() => {
+                                dispatch(setLoading(false));
+                            }, 700);
+                        }
+                        }
                         key={id}
                         className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col"
                     >
