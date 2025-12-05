@@ -24,7 +24,7 @@ export default function HospitalInfo() {
   return (
     <motion.div ref={ref} initial="hidden" animate={controls} variants={containerVariants}>
       <section
-        className="relative h-[320px] sm:h-[380px] md:h-[460px] lg:h-[520px] flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl"
+        className="relative h-[320px] sm:h-[380px] md:h-[460px] lg:h-[520px] flex items-center justify-center overflow-hidden  shadow-2xl"
       >
         <motion.div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
