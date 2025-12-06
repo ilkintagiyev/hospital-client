@@ -100,7 +100,7 @@ export default function Login() {
             >
                 {loading && <Spinner />}
 
-                <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-3xl w-full max-w-xl p-10">
+                <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-3xl w-full max-w-md p-8">
                     <h1 className="text-3xl font-bold text-blue-700 mb-8 text-center">
                         Giriş
                     </h1>

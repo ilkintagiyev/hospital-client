@@ -2,153 +2,173 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Input, Select, Button, Form, Typography } from 'antd';
-import { REQUIRED_FIELD } from '@/constants/forms';
-import { LoginForms } from './types';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import Modal from '@/components/Modal';
 import ErrorPage from '@/components/Error';
-import { useForm } from 'antd/es/form/Form';
-import { useRouter } from 'next/navigation';
+import { CustomInput } from '@/shared/CustomInput';
+import { CustomPassword } from '@/shared/CustomPassword';
+import CustomButton from '@/shared/CustomButton';
+import hospital from '@/assets/hospital.jpg';
 import api from '@/constants/api';
-import Cookies from 'js-cookie';
 
-const { Title } = Typography;
-const { Option } = Select;
-
-const RegisterPage = () => {
-
+export default function RegisterPage() {
     const router = useRouter();
 
-    const [form] = useForm();
-
-    const [formState, setFormState] = useState<LoginForms>({
+    const [formData, setFormData] = useState({
         name: '',
-        surname: "",
+        surname: '',
         email: '',
-        telephone: "",
+        telephone: '',
         password: '',
         role: 'patient',
     });
 
-    const [loading, setLoading] = useState(false);
-    const [errorModalVisible, setErrorModalVisible] = useState<boolean>(false)
-    const [errorMessage, setErrorMessage] = useState<string>("")
+    const [formErrors, setFormErrors] = useState({
+        name: '',
+        surname: '',
+        email: '',
+        telephone: '',
+        password: '',
+    });
 
-    const handleChange = (changedValues: LoginForms) => {
-        setFormState({ ...formState, ...changedValues });
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [errorVisible, setErrorVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value.trimStart() }));
+        setFormErrors(prev => ({ ...prev, [name]: '' }));
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
         setLoading(true);
-        try {
-            const response = await api.post("/register", formState)
-            Cookies.set('token', response?.data?.token, { expires: 7, secure: true, path: '/' });
+
+        const newErrors = {
+            name: !formData.name ? 'Ad boş ola bilməz.' : '',
+            surname: !formData.surname ? 'Soyad boş ola bilməz.' : '',
+            email: !formData.email ? 'E-poçt boş ola bilməz.' : '',
+            telephone: !formData.telephone ? 'Telefon boş ola bilməz.' : '',
+            password: !formData.password ? 'Şifrə boş ola bilməz.' : '',
+        };
+
+        setFormErrors(newErrors);
+
+        if (Object.values(newErrors).some(err => err)) {
             setLoading(false);
-            router.push("/");
-        } catch (error: any) {
-            setErrorModalVisible(true);
-            setErrorMessage(error?.response?.data?.message)
+            return;
         }
-        setLoading(false);
-        form.resetFields();
+
+        try {
+            const { data } = await api.post('/register', formData);
+            if (data?.token) {
+                Cookies.set('token', data.token, {
+                    expires: 7,
+                    secure: true,
+                    sameSite: 'strict',
+                });
+                router.push('/');
+            }
+        } catch (error: any) {
+            setErrorMessage(error?.response?.data?.message ?? 'Xəta baş verdi.');
+            setErrorVisible(true);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <>
-            <Modal modalVisible={errorModalVisible} setModalVisible={setErrorModalVisible}>
-                <ErrorPage setModalVisible={setErrorModalVisible} message={errorMessage} />
+            <Modal modalVisible={errorVisible} setModalVisible={setErrorVisible}>
+                <ErrorPage message={errorMessage} setModalVisible={setErrorVisible} />
             </Modal>
-            <div className="flex items-center justify-center min-h-screen bg-blue-100 transition-all duration-500">
+
+            <div
+                className="relative min-h-screen flex items-center justify-center px-4 bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${hospital.src})` }}
+            >
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4 }}
-                    className="bg-white  shadow-2xl rounded-3xl p-10 w-full max-w-md border border-gray-200 "
+                    className="bg-white/90 backdrop-blur-md shadow-2xl rounded-3xl w-full max-w-md p-10 md:p-12"
                 >
-                    <Title level={2} className="!text-center">
+                    <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
                         Qeydiyyat
-                    </Title>
+                    </h1>
 
-                    <Form
-                        layout="vertical"
-                        onFinish={handleSubmit}
-                        onValuesChange={(changed) => handleChange(changed)}
-                        requiredMark={false}
-                        className=''
-                    >
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-[50px]">
-                            <Form.Item
-                                label={<span className="text-gray-700 font-[600] text-[16px]">Ad</span>}
+                    <form noValidate onSubmit={handleSubmit} className="space-y-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <CustomInput
+                                label="Ad"
                                 name="name"
-                                rules={REQUIRED_FIELD("Ad yazılmalıdır")}
-                            >
-                                <Input size="large" placeholder="Ad" />
-                            </Form.Item>
-
-                            <Form.Item
-                                label={<span className="text-gray-700 font-[600] text-[16px]">Soyad</span>}
+                                type="text"
+                                value={formData.name}
+                                onChange={handleChange}
+                                error={formErrors.name}
+                            />
+                            <CustomInput
+                                label="Soyad"
                                 name="surname"
-                                rules={REQUIRED_FIELD("Soyad yazılmalıdır")}
-                            >
-                                <Input size="large" placeholder="Soyad" />
-                            </Form.Item>
+                                type="text"
+                                value={formData.surname}
+                                onChange={handleChange}
+                                error={formErrors.surname}
+                            />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <Form.Item
-                                label={<span className="text-gray-700 font-[600] text-[16px]">Elektron poçt</span>}
-                                name="email"
-                                rules={REQUIRED_FIELD("Elektron poçt")}
-                            >
-                                <Input size="large" type="email" placeholder="Elektron poçt" />
-                            </Form.Item>
+                        <CustomInput
+                            label="E-poçt ünvanı"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            error={formErrors.email}
+                        />
 
-                            <Form.Item
-                                label={<span className="text-gray-700 font-[600] text-[16px]">Telefon nömrəsi</span>}
-                                name="telephone"
-                                rules={REQUIRED_FIELD("Telefon nömrəsi")}
-                            >
-                                <Input size="large" type="text" placeholder="Telefon nömrəsi" />
-                            </Form.Item>
-                        </div>
+                        <CustomInput
+                            label="Telefon nömrəsi"
+                            name="telephone"
+                            type="text"
+                            value={formData.telephone}
+                            onChange={handleChange}
+                            error={formErrors.telephone}
+                        />
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <Form.Item
-                                label={<span className="text-gray-700 font-[600] text-[16px]">Parol</span>}
-                                name="password"
-                                rules={REQUIRED_FIELD("Parol yazılmalıdır")}
-                            >
-                                <Input.Password size="large" placeholder="Parol" />
-                            </Form.Item>
+                        <CustomPassword
+                            label="Şifrə"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            showPassword={showPassword}
+                            setShowPassword={setShowPassword}
+                            error={formErrors.password}
+                        />
 
-                            <Form.Item
-                                label={<span className="text-gray-700 font-[600] text-[16px]">Rol</span>}
+                        <div className="mt-4">
+                            <label className="text-gray-700 font-semibold">Rol</label>
+                            <select
                                 name="role"
-                                initialValue="patient"
+                                value={formData.role}
+                                onChange={e =>
+                                    setFormData(prev => ({ ...prev, role: e.target.value }))
+                                }
+                                className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200"
                             >
-                                <Select size="large">
-                                    <Option value="patient">Pasiyent</Option>
-                                    <Option value="doctor">Həkim</Option>
-                                </Select>
-                            </Form.Item>
+                                <option value="patient">Pasiyent</option>
+                                <option value="doctor">Həkim</option>
+                            </select>
                         </div>
 
-                        <Form.Item>
-                            <Button
-                                type="primary"
-                                htmlType="submit"
-                                size="large"
-                                loading={loading}
-                                className="w-full rounded-xl"
-                            >
-                                {loading ? 'Qeydiyyat olunur...' : 'Qeydiyyat'}
-                            </Button>
-                        </Form.Item>
-                    </Form>
+                        <CustomButton type="submit" loading={loading} className="w-full mt-6">
+                            Qeydiyyat
+                        </CustomButton>
+                    </form>
                 </motion.div>
             </div>
         </>
     );
-};
-
-export default RegisterPage;
+}
